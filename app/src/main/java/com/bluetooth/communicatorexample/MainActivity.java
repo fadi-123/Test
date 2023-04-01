@@ -99,6 +99,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // when we return to the app's gui we choose which fragment to start based on connection status
+        if (global.getBluetoothCommunicator().getConnectedPeersList().size() == 0) {
+            setFragment(DEFAULT_FRAGMENT);
+        } else {
+            setFragment(CONVERSATION_FRAGMENT);
+        }
+    }
+
     public void setFragment(int fragmentName) {
         switch (fragmentName) {
             case PAIRING_FRAGMENT: {
